@@ -75,9 +75,12 @@
     <!-- Navbar Start -->
     <div class="container-fluid position-relative p-0">
         <nav class="navbar navbar-expand-lg navbar-dark px-5 py-3 py-lg-0">
-            <a href="{{ url('/') }}" class="navbar-brand p-0">
-                <h1 class="m-0"><i class="fa fa-user-tie me-2"></i>Startup</h1>
-            </a>
+            <div class="d-flex flex-column align-items-center justify-content-center text-center h-100 p-4"
+                style="max-height:170px; max-width:161px ">
+                <a href="{{ url('/') }}" class="navbar-brand p-0">
+                    <img src="{{ asset('storage/img/logo.png') }}" class="img-fluid w-100">
+                </a>
+            </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="fa fa-bars"></span>
             </button>
@@ -86,13 +89,7 @@
                     <a href="{{ url('/') }}" class="nav-item nav-link">Home</a>
                     <a href="{{ url('/about') }}" class="nav-item nav-link active">About</a>
                     <a href="{{ url('/service') }}" class="nav-item nav-link">Services</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Blog</a>
-                        <div class="dropdown-menu m-0">
-                            <a href="{{ url('/blog') }}" class="dropdown-item ">Blog Grid</a>
-                            <a href="{{ url('/detail') }}" class="dropdown-item">Blog Detail</a>
-                        </div>
-                    </div>
+                    <a href="{{ url('/blog') }}" class="nav-item nav-link">Blog Grid</a>
                     <a href="{{ url('/contact') }}" class="nav-item nav-link ">Contact</a>
                 </div>
                 {{-- <button type="button" class="btn text-primary ms-3" data-bs-toggle="modal"
@@ -101,15 +98,18 @@
             </div>
         </nav>
 
-        <div class="container-fluid bg-primary py-5 bg-header" style="margin-bottom: 90px;">
-            <div class="row py-5">
+        <div class="container-fluid bg-primary py-5 bg-header" style="margin-bottom: 90px; min-height:100px">
+            <div style="height:50px;">
+
+            </div>
+            {{-- <div class="row py-5">
                 <div class="col-12 pt-lg-5 mt-lg-5 text-center">
                     <h1 class="display-4 text-white animated zoomIn">About Us</h1>
                     <a href="" class="h5 text-white">Home</a>
                     <i class="far fa-circle text-white px-2"></i>
                     <a href="" class="h5 text-white">About</a>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
     <!-- Navbar End -->
@@ -167,7 +167,7 @@
                         </div>
                         <div class="ps-4">
                             <h5 class="mb-2">Call to ask any question</h5>
-                            <h4 class="text-primary mb-0">{{ $aboutUs[0]->phone }}</h4>
+                            <h4 class="text-primary mb-0">{{ $getInTouch->phone }}</h4>
                         </div>
                     </div>
                     {{-- <a href="quote.html" class="btn btn-primary py-3 px-5 mt-3 wow zoomIn"
@@ -239,7 +239,7 @@
                     <img src="{{ asset('storage/img/vendor-6.jpg') }}" alt="">
                     <img src="{{ asset('storage/img/vendor-7.jpg') }}" alt="">
                     <img src="{{ asset('storage/img/vendor-8.jpg') }}" alt="">
-                    <img src="{{ asset('storage/img/vendor-9.jpg') }}" alt="">
+                    <img src="{{ asset('storage/img/logo.png') }}" alt="">
                 </div>
             </div>
         </div>
@@ -254,8 +254,9 @@
                 <div class="col-lg-4 col-md-6 footer-about">
                     <div
                         class="d-flex flex-column align-items-center justify-content-center text-center h-100 bg-primary p-4">
-                        <a href="index.html" class="navbar-brand">
-                            <h1 class="m-0 text-white"><i class="fa fa-user-tie me-2"></i>Startup</h1>
+                        <a href="{{ url('/') }}" class="navbar-brand">
+                            {{-- <h1 class="m-0 text-white"><i class="fa fa-user-tie me-2"></i>Startup</h1> --}}
+                            <img src="{{ asset('storage/img/logo.png') }}" class="img-fluid w-100">
                         </a>
                         {{-- <p class="mt-3 mb-4">Lorem diam sit erat dolor elitr et, diam lorem justo amet clita stet eos
                             sit. Elitr dolor duo lorem, elitr clita ipsum sea. Diam amet erat lorem stet eos. Diam amet
@@ -338,7 +339,7 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid text-white" style="background: #061429;">
+    <div class="container-fluid text-white bg-dark">
         <div class="container text-center">
             <div class="row justify-content-end">
                 <div class="col-lg-8 col-md-6">

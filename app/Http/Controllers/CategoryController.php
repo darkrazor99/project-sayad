@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\GetInTouch;
 use App\Models\BasicArtical;
 use Illuminate\Http\Request;
 
@@ -44,6 +45,7 @@ class CategoryController extends Controller
             'articals' => $test,
             'isArabic'=>$isArabic,
             'category' => Category::get(),
+            'getInTouch' => GetInTouch::all()[0]
         ]);
     }
     public function showAr(string $id)
@@ -54,6 +56,7 @@ class CategoryController extends Controller
             'articals' => $test,
             'isArabic'=>$isArabic,
             'category' => Category::get(),
+            'getInTouch' => GetInTouch::all()[0]
         ]);
     }
 

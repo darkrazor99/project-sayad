@@ -21,29 +21,29 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index', ['slides' => Carousel::all(), 'info' => Info::all()]);
+    return view('index', ['slides' => Carousel::all(),'getInTouch' => GetInTouch::all()[0], 'info' => Info::all()]);
 });
 Route::get('/index-ar', function () {
-    return view('index-ar', ['slides' => Carousel::all(), 'info' => Info::all()]);
+    return view('index-ar', ['slides' => Carousel::all(),'getInTouch' => GetInTouch::all()[0], 'info' => Info::all()]);
 });
-Route::get('/blog-ar', function () {
-    return view('blog-ar');
-});
+// Route::get('/blog-ar', function () {
+//     return view('blog-ar',);
+// });
 // Route::get('/blog', function () {
 //     return view('blog');
 // });
 Route::get('/contact-ar', function () {
-    return view('contact-ar');
+    return view('contact-ar',['getInTouch' => GetInTouch::all()[0]]);
 });
 Route::get('/contact', function () {
-    return view('contact');
+    return view('contact',['getInTouch' => GetInTouch::all()[0]]);
 });
 
 Route::get('/service-ar', function () {
-    return view('service-ar');
+    return view('service-ar',['getInTouch' => GetInTouch::all()[0]]);
 });
 Route::get('/service', function () {
-    return view('service');
+    return view('service',['getInTouch' => GetInTouch::all()[0]]);
 });
 Route::get('/about', function () {
     return view('about', ['aboutUs' => Aboutus::all(), 'getInTouch' => GetInTouch::all()[0], 'members' => TeamMember::all()]);

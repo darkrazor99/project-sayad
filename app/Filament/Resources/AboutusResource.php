@@ -89,13 +89,6 @@ class AboutusResource extends Resource
                     ]),
                 Forms\Components\Group::make()
                     ->schema([
-                        Forms\Components\Section::make('phone')
-                            ->schema([
-                                Forms\Components\TextInput::make('phone')
-                                    ->tel()
-                                    ->required()
-                                    ->maxLength(255),
-                            ]),
                         Forms\Components\Section::make('Image')
                             ->schema([
                                 Forms\Components\FileUpload::make('img')
@@ -117,15 +110,7 @@ class AboutusResource extends Resource
                     ->words(5),
                 Tables\Columns\TextColumn::make('h1-ar')
                     ->words(5),
-                Tables\Columns\TextColumn::make('phone'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+
             ])
             ->filters([
                 //

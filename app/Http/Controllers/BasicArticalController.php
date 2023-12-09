@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BasicArtical;
 use App\Models\Category;
+use App\Models\GetInTouch;
+use App\Models\BasicArtical;
 use Illuminate\Http\Request;
 
 class BasicArticalController extends Controller
@@ -13,10 +14,12 @@ class BasicArticalController extends Controller
      */
     public function index()
     {
+
         $test = BasicArtical::where('isArabic', 0)->orderby('created_at', 'desc')->with('category')->paginate(10);
         return view('blog', [
             'articals' => $test,
             'category' => Category::get(),
+            'getInTouch' => GetInTouch::all()[0]
         ]);
     }
 
@@ -26,6 +29,7 @@ class BasicArticalController extends Controller
         return view('blog-ar', [
             'articals' => $test,
             'category' => Category::get(),
+            'getInTouch' => GetInTouch::all()[0]
         ]);
     }
 
@@ -58,6 +62,7 @@ class BasicArticalController extends Controller
             'category' => Category::get(),
             'focus' => $focus,
             'isArabic' => $isArabic,
+            'getInTouch' => GetInTouch::all()[0]
         ]);
     }
     public function showAR(string $id)
@@ -70,6 +75,7 @@ class BasicArticalController extends Controller
             'category' => Category::get(),
             'focus' => $focus,
             'isArabic' => $isArabic,
+            'getInTouch' => GetInTouch::all()[0]
 
         ]);
     }
