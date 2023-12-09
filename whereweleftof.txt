@@ -1,0 +1,35 @@
+made models and migrations may have issues fixed them also made login + profile and made them use username
+made one user with admin 12345678
+____________________________________
+todo
+____________________________________
+____________________________________
+
+artical + pdf artical done prettymuch
+video still needs an observer for video
+and check why preview not work when editing only works for updating fml
+then integrate front and cry while u integrate the frong and call dh and ask him do u love and he doesnt respond sing the drake song
+check the fucking spatie thingy magicede
+
+after done make new one usige media library plugin check vid ongaboga awoga
+___________________________________________
+as for front end work
+We deleted pages from blog ar and all the html i deleted em now we gonna do same for rest big onga bonga brain
+match shit up and we good right display from dp and see how it goes ya bro
+tomorrow we fuck it up moringi  till night now i done
+iam done did the english nav bar need to do arabic one tomorrow then link up dp see how it do bro bro
+________________________________________________________________________________________________________
+need to add arabic feilds for articals ask about it not yet thou  cause its a small edit justmake suer it all works first
+think bout it later
+________________________________________________________________________________________________________
+keeps going with the easy stuff
+figure out comments
+and display
+____________________________________
+make one artical which has abool to what type vid or img and pdf that can be null and image or vid path
+get rid of the rest
+also add arabic equivilent do design for dashboard after done display and lets figure out comments too
+add publish date make default today add who worte it too
+maybe brief desc aswell which I can input myself or they can I will let them do it doe
+
+alright all thats left is to do the show wish is ezy trust
