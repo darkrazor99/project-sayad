@@ -54,30 +54,50 @@ class BasicArticalController extends Controller
      */
     public function show(string $id)
     {
+        $test = BasicArtical::where('isArabic', 0)->orderby('created_at', 'desc')->with('category')->paginate(10);
         $isArabic = false;
-        $all = BasicArtical::where('isArabic', 0)->orderby('created_at', 'desc')->take(6)->with('category')->get();
+        $all = BasicArtical::where('isArabic', 0)->orderby('published_at', 'desc')->take(6)->with('category')->get();
         $focus = BasicArtical::where('id', $id)->with('category')->get();
-        return view('detail', [
-            'articals' => $all,
-            'category' => Category::get(),
-            'focus' => $focus,
-            'isArabic' => $isArabic,
-            'getInTouch' => GetInTouch::all()[0]
-        ]);
+        if ($focus->count()>0){
+            return view('detail', [
+                'articals' => $all,
+                'category' => Category::get(),
+                'focus' => $focus,
+                'isArabic' => $isArabic,
+                'getInTouch' => GetInTouch::all()[0]
+            ]);
+        }
+        else {
+            return view('blog', [
+                'articals' => $test,
+                'category' => Category::get(),
+                'getInTouch' => GetInTouch::all()[0]
+            ]);
+        }
+
     }
     public function showAR(string $id)
     {
+        $test = BasicArtical::where('isArabic', 1)->orderby('created_at', 'desc')->with('category')->paginate(10);
         $isArabic = true;
-        $all = BasicArtical::where('isArabic', 1)->orderby('created_at', 'desc')->take(6)->with('category')->get();
+        $all = BasicArtical::where('isArabic', 1)->orderby('published_at', 'desc')->take(6)->with('category')->get();
         $focus = BasicArtical::where('id', $id)->with('category')->get();
-        return view('detail', [
-            'articals' => $all,
-            'category' => Category::get(),
-            'focus' => $focus,
-            'isArabic' => $isArabic,
-            'getInTouch' => GetInTouch::all()[0]
-
-        ]);
+        if ($focus->count()>0){
+            return view('detail', [
+                'articals' => $all,
+                'category' => Category::get(),
+                'focus' => $focus,
+                'isArabic' => $isArabic,
+                'getInTouch' => GetInTouch::all()[0]
+            ]);
+        }
+        else {
+            return view('blog', [
+                'articals' => $test,
+                'category' => Category::get(),
+                'getInTouch' => GetInTouch::all()[0]
+            ]);
+        }
     }
 
     /**

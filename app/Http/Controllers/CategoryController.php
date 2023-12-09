@@ -40,7 +40,7 @@ class CategoryController extends Controller
     public function show(string $id)
     {
         $isArabic=false;
-        $test = BasicArtical::where('category_id', $id)->where('isArabic', 0)->orderby('created_at', 'desc')->with('category')->paginate(10);
+        $test = BasicArtical::where('category_id', $id)->where('isArabic', 0)->orderby('published_at', 'desc')->with('category')->paginate(10);
         return view('blog', [
             'articals' => $test,
             'isArabic'=>$isArabic,
@@ -51,7 +51,7 @@ class CategoryController extends Controller
     public function showAr(string $id)
     {
         $isArabic=true;
-        $test = BasicArtical::where('category_id', $id)->where('isArabic', 1)->orderby('created_at', 'desc')->with('category')->paginate(10);
+        $test = BasicArtical::where('category_id', $id)->where('isArabic', 1)->orderby('published_at', 'desc')->with('category')->paginate(10);
         return view('blog-ar', [
             'articals' => $test,
             'isArabic'=>$isArabic,

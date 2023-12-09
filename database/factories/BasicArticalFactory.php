@@ -27,6 +27,7 @@ class BasicArticalFactory extends Factory
             'pdf' => 'pdf/sample.pdf',
             'video' => 'vid/sample.mp4',
             'isArabic' => $this->faker->numberBetween(0, 1),
+            'published_at' => $this->faker->dateTimeThisMonth(),
 
 
         ];

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BasicArticalController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FallbackController;
 use App\Models\Aboutus;
 use App\Models\Carousel;
 use App\Models\GetInTouch;
@@ -65,3 +66,5 @@ Route::get('/blog-ar', [BasicArticalController::class, 'indexAr']);
 Route::get('/blog-ar/{id}', [BasicArticalController::class, 'showAr']);
 // list all arabic articals with specific category Id
 Route::get('/category-ar/{id}', [CategoryController::class, 'showAr']);
+
+Route::fallback(FallbackController::class);

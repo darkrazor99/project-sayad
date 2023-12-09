@@ -19,6 +19,10 @@ class BasicArticalResource extends Resource
     protected static ?string $model = BasicArtical::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $slug = "Articals";
+
+    protected static ?string $navigationLabel = "Articals";
+    protected static ?string $pluralModelLabel = "Articals";
 
     protected static ?string $navigationGroup = 'Articals';
 
@@ -159,7 +163,7 @@ class BasicArticalResource extends Resource
                 Tables\Columns\TextColumn::make('published_at')
                     ->date()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(),
 
 
             ])->defaultSort('published_at', 'desc')
@@ -168,11 +172,11 @@ class BasicArticalResource extends Resource
                     ->relationship('category', 'name')
                     ->native(false),
                 Tables\Filters\TernaryFilter::make('isArabic')
-                ->label('Language')
-                ->boolean()
-                ->trueLabel('Only Arabic Articals')
-                ->falseLabel('Only English Articals')
-                ->native(false),
+                    ->label('Language')
+                    ->boolean()
+                    ->trueLabel('Only Arabic Articals')
+                    ->falseLabel('Only English Articals')
+                    ->native(false),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
