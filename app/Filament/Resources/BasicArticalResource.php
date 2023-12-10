@@ -20,6 +20,7 @@ class BasicArticalResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $slug = "Articals";
+    protected static ?int $navigationSort = 2;
 
     protected static ?string $navigationLabel = "Articals";
     protected static ?string $pluralModelLabel = "Articals";

@@ -18,6 +18,7 @@ class AboutusResource extends Resource
 {
     protected static ?string $model = Aboutus::class;
     protected static ?string $slug = "About-Us";
+    protected static ?int $navigationSort = 5;
 
     protected static ?string $navigationLabel = "About Us";
     protected static ?string $pluralModelLabel = "About Us";

@@ -17,6 +17,8 @@ class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
 
+    protected static ?int $navigationSort = 1;
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?string $navigationGroup = 'Articals';
@@ -31,7 +33,7 @@ class CategoryResource extends Resource
                                 Forms\Components\TextInput::make('name')
                                     ->required()
                                     ->live(onBlur: true)
-                                    ->unique()
+                                    ->unique(ignorable: fn ($record) => $record)
                                     ->autofocus(),
                                 Forms\Components\Textarea::make('description')
                                     ->autosize()
@@ -40,14 +42,13 @@ class CategoryResource extends Resource
                     ]),
                 Forms\Components\Group::make()
                     ->schema([
-                        Forms\Components\Section::make("Araboc")
+                        Forms\Components\Section::make("Arabic")
                             ->schema([
                                 Forms\Components\TextInput::make('name_ar')
                                     ->required()
                                     ->label('name')
                                     ->live(onBlur: true)
-                                    ->unique()
-                                    ->autofocus(),
+                                    ->unique(ignorable: fn ($record) => $record),
                                 Forms\Components\Textarea::make('description_ar')
                                     ->label('description')
                                     ->autosize()
@@ -65,11 +66,13 @@ class CategoryResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('description')
-                    ->limit(20)
+                Tables\Columns\TextColumn::make('name_ar')
+                    ->label('name in Arabic')
+                    ->sortable()
+                    ->searchable()
                     ->toggleable(),
 
-            ])
+            ])->defaultSort('name', 'desc')
             ->filters([
                 //
             ])

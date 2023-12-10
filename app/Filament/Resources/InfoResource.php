@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class InfoResource extends Resource
 {
+    protected static ?int $navigationSort = 4;
+
     protected static ?string $model = Info::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

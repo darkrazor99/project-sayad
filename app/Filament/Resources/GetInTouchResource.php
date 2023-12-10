@@ -18,6 +18,7 @@ class GetInTouchResource extends Resource
 {
     protected static ?string $model = GetInTouch::class;
     protected static ?string $slug = "Get-In-Touch";
+    protected static ?int $navigationSort = 6;
 
     protected static ?string $navigationLabel = "Get In Touch";
     protected static ?string $pluralModelLabel = "Get In Touch";
