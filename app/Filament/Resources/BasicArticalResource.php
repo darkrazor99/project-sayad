@@ -22,10 +22,10 @@ class BasicArticalResource extends Resource
     protected static ?string $slug = "Articals";
     protected static ?int $navigationSort = 2;
 
-    protected static ?string $navigationLabel = "Articals";
-    protected static ?string $pluralModelLabel = "Articals";
+    protected static ?string $navigationLabel = "الفصل";
+    protected static ?string $pluralModelLabel = "الفصول";
 
-    protected static ?string $navigationGroup = 'Articals';
+    protected static ?string $navigationGroup = 'الروايات';
 
     public static function form(Form $form): Form
     {
@@ -66,15 +66,16 @@ class BasicArticalResource extends Resource
                         Forms\Components\Section::make('Catagory')
                             ->schema([
                                 Forms\Components\Select::make('category_id')
-                                    ->relationship('category', 'name')
+                                    ->relationship('category', 'name_ar')
                                     ->required()
                                     ->native(false),
                             ]),
                         Forms\Components\Section::make('Options')
                             ->schema([
                                 Forms\Components\Toggle::make('isArabic')
-                                    ->label('Arabic Artical')
-                                    ->helperText('Is this artical in Arabic?'),
+                                    ->label('make this artical Arabic Only?')
+                                    ->default(true)
+                                    ->helperText('Keep it off If you want it to be both'),
 
                                 Forms\Components\Toggle::make('hasVid')
                                     ->live()

@@ -14,7 +14,7 @@ class BasicArtical extends Model
         'header',
         'body',
         'img',
-        'category_id',
+        'book_id',
         'pdf',
         'video',
         'shortDesc',

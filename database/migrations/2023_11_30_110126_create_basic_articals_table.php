@@ -17,13 +17,19 @@ return new class extends Migration {
             $table->longText('body')->nullable();
             $table->boolean('hasVid')->default(false);
             $table->boolean('hasPdf')->default(false);
+            // remove me  or dont use me at all
             $table->boolean('isArabic')->default(false);
             $table->string('img')->nullable();
+
+            // remove these make own place
             $table->string('pdf')->nullable();
+
+            // remove these make own place
             $table->string('vid')->nullable();
+
             $table->date('published_at');
-            $table->foreignId('category_id')
-                ->constrained('categories')
+            $table->foreignId('book_id')
+                ->constrained('books')
                 ->cascadeOnDelete();
             $table->timestamps();
         });
