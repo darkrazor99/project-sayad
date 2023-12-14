@@ -6,23 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Book extends Model
+class PdfCategory extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'category_id',
         'name',
-        'img',
-        'shortDesc',
-        'writerName',
-        'isBublished',
-
-        'published_at'
+        'description',
+        'name_ar',
+        'description_ar',
     ];
 
     public function BasicArtical(): HasMany
     {
-        return $this->hasMany(BasicArtical::class);
+        return $this->hasMany(Pdf::class);
     }
 }
