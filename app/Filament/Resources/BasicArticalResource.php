@@ -2,17 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\BasicArticalResource\Pages;
-use App\Filament\Resources\BasicArticalResource\RelationManagers;
-use App\Models\BasicArtical;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Get;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Models\BasicArtical;
+use Filament\Resources\Resource;
+use Illuminate\Validation\Rules\Unique;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Get;
+use App\Filament\Resources\BasicArticalResource\Pages;
+use App\Filament\Resources\BasicArticalResource\RelationManagers;
 
 class BasicArticalResource extends Resource
 {
@@ -57,24 +58,24 @@ class BasicArticalResource extends Resource
                             ->schema([
                                 Forms\Components\Select::make('book_id')
                                     ->relationship('book', 'name')
+                                    ->reactive()
                                     ->label('اسم الرواية')
                                     ->required()
                                     ->native(false),
                             ]),
 
-                        Forms\Components\Section::make('Publish Date')
-                            ->schema([
-                                Forms\Components\DatePicker::make('published_at')
-                                    ->required()
-                                    ->default(now()),
-
-                            ]),
                         Forms\Components\Section::make('Image')
                             ->schema([
                                 Forms\Components\FileUpload::make('img')
                                     ->image()
                                     ->label('Image')
+                                    ->required()
                                     ->imageEditor()
+                                    ->hint("if you want to use the Editor make sure to save")
+                                    ->dehydrateStateUsing(function ($state) {
+                                        $files = array_values($state ?? []);
+                                        return end($files);
+                                    })
                                     ->directory("img"),
                             ]),
 
@@ -95,23 +96,24 @@ class BasicArticalResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('header')
                     ->searchable()
-                    ->limit(25)
+                    ->label('عنوان الفصل')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('book.name')
                     ->searchable()
+                    ->label('الرواية التابع لها')
                     ->sortable()
                     ->toggleable(),
-                Tables\Columns\ImageColumn::make('img')
-                    ->width(100)
-                    ->height(100)
-                    ->toggleable(),
-                Tables\Columns\TextColumn::make('published_at')
-                    ->date()
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
                     ->sortable()
-                    ->toggleable(),
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
 
-            ])->defaultSort('published_at', 'desc')
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\SelectFilter::make('اسم الرواية')
                     ->relationship('book', 'name')

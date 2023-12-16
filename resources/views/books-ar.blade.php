@@ -77,7 +77,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark px-5 py-3 py-lg-0">
             <div class="d-flex flex-column align-items-center justify-content-center text-center h-100 p-4"
                 style="max-height:170px; max-width:161px ">
-                <a href="{{ url('/') }}" class="navbar-brand p-0">
+                <a href="{{ url('/index-ar') }}" class="navbar-brand p-0">
                     <img src="{{ asset('storage/img/logo.png') }}" class="img-fluid w-100">
                 </a>
             </div>
@@ -86,35 +86,31 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
-                    <a href="{{ url('/') }}" class="nav-item nav-link">Home</a>
-                    <a href="{{ url('/about') }}" class="nav-item nav-link">About</a>
-                    <a href="{{ url('/service') }}" class="nav-item nav-link">Services</a>
+                    <a href="{{ url('/index-ar') }}" class="nav-item nav-link">Home</a>
+                    <a href="{{ url('/about-ar') }}" class="nav-item nav-link">About</a>
+                    <a href="{{ url('/service-ar') }}" class="nav-item nav-link">Services</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Blog</a>
                         <div class="dropdown-menu m-0">
                             {{-- books --}}
-                            <a href="{{ url('/books') }}" class="dropdown-item">books</a>
+                            <a href="{{ url('/books-ar') }}" class="dropdown-item">books</a>
                             {{-- photos --}}
-                            <a href="{{ url('/art') }}" class="dropdown-item">art</a>
+                            <a href="{{ url('/art-ar') }}" class="dropdown-item">art</a>
                             {{-- pdf --}}
-                            <a href="{{ url('/pdf') }}" class="dropdown-item">pdf</a>
+                            <a href="{{ url('/pdf-ar') }}" class="dropdown-item">pdf</a>
                             {{-- videos --}}
-                            <a href="{{ url('/vid') }}" class="dropdown-item">videos</a>
+                            <a href="{{ url('/vid-ar') }}" class="dropdown-item">videos</a>
                             {{-- normale blogs --}}
-                            <a href="{{ url('/blog') }}" class="dropdown-item">Blog</a>
+                            <a href="{{ url('/blog-ar') }}" class="dropdown-item">Blog</a>
+
                         </div>
                     </div>
-                    <a href="{{ url('/contact') }}" class="nav-item nav-link ">Contact</a>
+
+                    <a href="{{ url('/contact-ar') }}" class="nav-item nav-link">Contact</a>
                 </div>
-                @if ($hasPdf)
-                    <a href="{{ url('/pdf-ar') }}" class="btn btn-success py-2 px-4 ms-3">اللغة العربية</a>
-                @elseif ($hasVid)
-                    <a href="{{ url('/vid-ar') }}" class="btn btn-success py-2 px-4 ms-3">اللغة العربية</a>
-                @elseif($isArt)
-                    <a href="{{ url('/art-ar') }}" class="btn btn-success py-2 px-4 ms-3">اللغة العربية</a>
-                @else
-                    <a href="{{ url('/blog-ar') }}" class="btn btn-success py-2 px-4 ms-3">اللغة العربية</a>
-                @endif
+                {{-- <button type="button" class="btn text-primary ms-3" data-bs-toggle="modal"
+                    data-bs-target="#searchModal"><i class="fa fa-search"></i></button> --}}
+                <a href="{{ url('/books') }}" class="btn btn-success py-2 px-4 ms-3"> To English</a>
             </div>
         </nav>
 
@@ -135,175 +131,212 @@
     <!-- Navbar End -->
 
 
+    {{-- <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(9, 30, 62, .7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-primary p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-primary px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End --> --}}
 
     <!-- Blog Start -->
     <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container py-5">
             <div class="row g-5">
                 <!-- Blog list Start -->
-                <div class="col-lg-8">
-                    <div class="row g-5">
-                        @for ($i = 0; $i < $articals->count(); $i++)
-                            {{-- item start --}}
-                            <div class="col-md-6 wow slideInUp" data-wow-delay="0.1s">
-                                <div class="blog-item bg-light rounded overflow-hidden">
-                                    <div class="blog-img position-relative overflow-hidden">
-                                        <img class="img-fluid" src="{{ asset('storage/' . $articals[$i]->img) }}"
-                                            alt="">
-                                        <a class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4"
-                                            role="link"
-                                            aria-disabled="true">{{ $articals[$i]->category['name'] }}</a>
-                                    </div>
-                                    <div class="p-4">
-                                        {{-- <div class="d-flex mb-3">
-                                            <small class="me-3"><i class="far fa-user text-primary me-2"></i>John
-                                                Doe</small>
-                                            <small><i class="far fa-calendar-alt text-primary me-2"></i>01 Jan,
-                                                2045</small>
-                                        </div> --}}
-                                        <h4 class="mb-3">{{ $articals[$i]->header }}</h4>
-                                        <p>{{ $articals[$i]->shortDesc }}</p>
+                <!-- Blog Start -->
+                <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="container py-5">
+                        <div class="row g-5">
+                            <!-- Blog list Start -->
+                            <div class="col-lg-8">
+                                <div class="row g-5">
+                                    @for ($i = 0; $i < $articals->count(); $i++)
+                                        {{-- item start --}}
+                                        <div class="col-md-6 wow slideInUp" data-wow-delay="0.1s">
+                                            <div class="blog-item bg-light rounded overflow-hidden">
+                                                <div class="blog-img position-relative overflow-hidden">
+                                                    <img class="img-fluid"
+                                                        src="{{ asset('storage/' . $articals[$i]->img) }}"
+                                                        alt="">
+                                                    {{-- {{dd($mycat);}} --}}
+                                                    @if ($show)
+                                                        <a class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4"
+                                                            href="{{ url('/category-ar/' . $mycat['id']) }}">{{ $mycat['name'] }}</a>
+                                                    @else
+                                                        {{-- {{dd($articals);}} --}}
+                                                        <a class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4"
+                                                            href="{{ url('/category-ar/' . $articals[$i]->category_id) }}">{{ $articals[$i]->category['name'] }}</a>
+                                                    @endif
 
-                                        @if ($hasPdf)
-                                            <a class="text-uppercase"
-                                                href="{{ url('/pdf/' . $articals[$i]->id) }}">Read
-                                                More <i class="bi bi-arrow-right"></i></a>
-                                        @elseif ($hasVid)
-                                            <a class="text-uppercase"
-                                                href="{{ url('/vid/' . $articals[$i]->id) }}">Read
-                                                More <i class="bi bi-arrow-right"></i></a>
-                                        @elseif($isArt)
-                                            <a class="text-uppercase"
-                                                href="{{ url('/art/' . $articals[$i]->id) }}">Read
-                                                More <i class="bi bi-arrow-right"></i></a>
-                                        @else
-                                            <a class="text-uppercase"
-                                                href="{{ url('/blog/' . $articals[$i]->id) }}">Read
-                                                More <i class="bi bi-arrow-right"></i></a>
-                                        @endif
+                                                </div>
+                                                <div class="p-4">
+                                                    <div class="d-flex mb-3">
+                                                        @if (!$show)
+                                                            <a
+                                                                href="{{ url('/writer-ar/' . $articals[$i]->writerName) }}">
+                                                                <small class="me-3"><i
+                                                                        class="far fa-user text-primary me-2"></i>
+                                                                    {{ $articals[$i]->writerName }}
+                                                                </small>
+                                                            </a>
+                                                        @endif
+                                                        {{-- <small><i class="far fa-calendar-alt text-primary me-2"></i>01 Jan,
+                                            2045</small> --}}
+                                                    </div>
+                                                    @if ($show)
+                                                        <h4 class="mb-3">{{ $articals[$i]->header }}</h4>
+                                                    @else
+                                                        <h4 class="mb-3">{{ $articals[$i]->name }}</h4>
+                                                    @endif
+                                                    <p>{{ $articals[$i]->shortDesc }}</p>
+                                                    @if ($show)
+                                                        <a class="text-uppercase"
+                                                            href="{{ url('/story-ar/' . $articals[$i]->book_id . '?page=' . ($articals->count() - $i)) }}">Read
+                                                            More <i class="bi bi-arrow-right"></i></a>
+                                                    @else
+                                                        <a class="text-uppercase"
+                                                            href="{{ url('/books-ar/' . $articals[$i]->id) }}">Read
+                                                            More <i class="bi bi-arrow-right"></i></a>
+                                                    @endif
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- item end --}}
+                                    @endfor
+
+                                    <div class="col-12 wow slideInUp" data-wow-delay="0.1s">
+                                        {{-- paging the css and the html comes from Resources/vendor/livewire/bootstrap.blade.php --}}
+                                        {{ $articals->links() }}
                                     </div>
                                 </div>
                             </div>
-                            {{-- item end --}}
-                        @endfor
+                            <!-- Blog list End -->
 
-                        <div class="col-12 wow slideInUp" data-wow-delay="0.1s">
-                            {{-- paging the css and the html comes from Resources/vendor/livewire/bootstrap.blade.php --}}
-                            {{ $articals->links() }}
+
+                            <!-- Sidebar Start -->
+                            <div class="col-lg-4">
+
+                                <!-- Category Start -->
+                                <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+                                    <div class="section-title section-title-sm position-relative pb-3 mb-4">
+                                        <h3 class="mb-0">Categories</h3>
+                                    </div>
+                                    <div class="link-animated d-flex flex-column justify-content-start">
+                                        @foreach ($category as $item)
+                                            <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
+                                                href="{{ url('/category-ar/' . $item->id) }}"><i
+                                                    class="bi bi-arrow-right me-2"></i>{{ $item->name_ar }}</a>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <!-- Category End -->
+                                <!-- Recent Post Start -->
+                                <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+                                    <div class="section-title section-title-sm position-relative pb-3 mb-4">
+                                        <h3 class="mb-0">Recent Books</h3>
+                                    </div>
+                                    @foreach ($books as $book)
+                                        <div class="d-flex rounded overflow-hidden mb-3">
+                                            <img class="img-fluid" src="{{ asset('storage/' . $book->img) }}"
+                                                style="width: 100px; height: 100px; object-fit: cover;"
+                                                alt="">
+                                            <a href="{{ url('/books-ar/' . $book->id) }}"
+                                                class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
+                                                {{ $book->name }}
+                                            </a>
+                                        </div>
+                                    @endforeach
+
+                                </div>
+
+
+
+                            </div>
+                            <!-- Recent Post End -->
+
                         </div>
+                        {{-- <!-- Image Start -->
+                    <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+                        <img src="img/blog-1.jpg" alt="" class="img-fluid rounded">
                     </div>
-                </div>
-                <!-- Blog list End -->
+                    <!-- Image End --> --}}
 
-                <!-- Sidebar Start -->
-                <div class="col-lg-4">
-
-                    <!-- Category Start -->
+                        {{-- <!-- Tags Start -->
                     <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
                         <div class="section-title section-title-sm position-relative pb-3 mb-4">
-                            <h3 class="mb-0">Categories</h3>
+                            <h3 class="mb-0">Tag Cloud</h3>
                         </div>
-                        <div class="link-animated d-flex flex-column justify-content-start">
-                            @foreach ($category as $item)
-                                @if ($hasPdf)
-                                    <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-                                        href="{{ url('/pdfcategory/' . $item->id) }}"><i
-                                            class="bi bi-arrow-right me-2"></i>{{ $item->name }}</a>
-                                @elseif ($hasVid)
-                                    <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-                                        href="{{ url('/vidcategory/' . $item->id) }}"><i
-                                            class="bi bi-arrow-right me-2"></i>{{ $item->name }}</a>
-                                @elseif($isArt)
-                                    <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-                                        href="{{ url('/artcategory/' . $item->id) }}"><i
-                                            class="bi bi-arrow-right me-2"></i>{{ $item->name }}</a>
-                                @else
-                                    <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-                                        href="{{ url('/blogcategory/' . $item->id) }}"><i
-                                            class="bi bi-arrow-right me-2"></i>{{ $item->name }}</a>
-                                @endif
-                            @endforeach
+                        <div class="d-flex flex-wrap m-n1">
+                            <a href="" class="btn btn-light m-1">Design</a>
+                            <a href="" class="btn btn-light m-1">Development</a>
+                            <a href="" class="btn btn-light m-1">Marketing</a>
+                            <a href="" class="btn btn-light m-1">SEO</a>
+                            <a href="" class="btn btn-light m-1">Writing</a>
+                            <a href="" class="btn btn-light m-1">Consulting</a>
+                            <a href="" class="btn btn-light m-1">Design</a>
+                            <a href="" class="btn btn-light m-1">Development</a>
+                            <a href="" class="btn btn-light m-1">Marketing</a>
+                            <a href="" class="btn btn-light m-1">SEO</a>
+                            <a href="" class="btn btn-light m-1">Writing</a>
+                            <a href="" class="btn btn-light m-1">Consulting</a>
                         </div>
                     </div>
-                    <!-- Category End -->
-                    <!-- Recent Post Start -->
-                    <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+                    <!-- Tags End --> --}}
+
+                        {{-- <!-- Plain Text Start -->
+                    <div class="wow slideInUp" data-wow-delay="0.1s">
                         <div class="section-title section-title-sm position-relative pb-3 mb-4">
-                            <h3 class="mb-0">Recent Post</h3>
+                            <h3 class="mb-0">Plain Text</h3>
                         </div>
-                        @if ($articals->count() < 6)
-                            @foreach ($articals as $artical)
-                                <div class="d-flex rounded overflow-hidden mb-3">
-                                    <img class="img-fluid" src="{{ asset('storage/' . $artical->img) }}"
-                                        style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                                    @if ($hasPdf)
-                                        <a href="{{ url('/pdf/' . $artical->id) }}"
-                                            class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
-                                            {{ $artical->header }}
-                                        </a>
-                                    @elseif ($hasVid)
-                                        <a href="{{ url('/vid/' . $artical->id) }}"
-                                            class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
-                                            {{ $artical->header }}
-                                        </a>
-                                    @elseif($isArt)
-                                        <a href="{{ url('/art/' . $artical->id) }}"
-                                            class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
-                                            {{ $artical->header }}
-                                        </a>
-                                    @else
-                                        <a href="{{ url('/blog/' . $artical->id) }}"
-                                            class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
-                                            {{ $artical->header }}
-                                        </a>
-                                    @endif
-                                </div>
-                            @endforeach
-                        @else
-                            @for ($i = 0; $i < 6; $i++)
-                                <div class="d-flex rounded overflow-hidden mb-3">
-                                    <img class="img-fluid" src="{{ asset('storage/' . $articals[$i]->img) }}"
-                                        style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                                    @if ($hasPdf)
-                                        <a href="{{ url('/pdf/' . $articals[$i]->id) }}"
-                                            class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
-                                            {{ $articals[$i]->header }}
-                                        </a>
-                                        </a>
-                                    @elseif ($hasVid)
-                                        <a href="{{ url('/vid/' . $articals[$i]->id) }}"
-                                            class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
-                                            {{ $articals[$i]->header }}
-                                        </a>
-                                        </a>
-                                    @elseif($isArt)
-                                        <a href="{{ url('/art/' . $articals[$i]->id) }}"
-                                            class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
-                                            {{ $articals[$i]->header }}
-                                        </a>
-                                    @else
-                                        <a href="{{ url('/blog/' . $articals[$i]->id) }}"
-                                            class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
-                                            {{ $articals[$i]->header }}
-                                        </a>
-                                    @endif
-                                </div>
-                            @endfor
-                        @endif
-
-
+                        <div class="bg-light text-center" style="padding: 30px;">
+                            <p>Vero sea et accusam justo dolor accusam lorem consetetur, dolores sit amet sit dolor
+                                clita kasd justo, diam accusam no sea ut tempor magna takimata, amet sit et diam dolor
+                                ipsum amet diam</p>
+                            <a href="" class="btn btn-primary py-2 px-4">Read More</a>
+                        </div>
                     </div>
-                    <!-- Recent Post End -->
-
-
+                    <!-- Plain Text End --> --}}
+                    </div>
+                    <!-- Sidebar End -->
                 </div>
-                <!-- Sidebar End -->
             </div>
         </div>
     </div>
+
     <!-- Blog End -->
-
-
+    {{-- <!-- Vendor Start -->
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container py-5 mb-5">
+            <div class="bg-white">
+                <div class="owl-carousel vendor-carousel">
+                    <img src="img/vendor-1.jpg" alt="">
+                    <img src="img/vendor-2.jpg" alt="">
+                    <img src="img/vendor-3.jpg" alt="">
+                    <img src="img/vendor-4.jpg" alt="">
+                    <img src="img/vendor-5.jpg" alt="">
+                    <img src="img/vendor-6.jpg" alt="">
+                    <img src="img/vendor-7.jpg" alt="">
+                    <img src="img/vendor-8.jpg" alt="">
+                    <img src="img/vendor-9.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vendor End --> --}}
 
 
     <!-- Footer Start -->
@@ -403,7 +436,8 @@
             <div class="row justify-content-end">
                 <div class="col-lg-8 col-md-6">
                     <div class="d-flex align-items-center justify-content-center" style="height: 75px;">
-                        <p class="mb-0">&copy; <a class="text-white border-bottom" href="#">Your Site
+                        <p class="mb-0">&copy; <a class="text-white border-bottom" href="#">Your
+                                Site
                                 Name</a>. All Rights Reserved.
 
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
@@ -421,6 +455,7 @@
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded back-to-top"><i
             class="bi bi-arrow-up"></i></a>
+
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

@@ -16,7 +16,7 @@ class PdfCategory extends Model
         'description_ar',
     ];
 
-    public function BasicArtical(): HasMany
+    public function pdf(): HasMany
     {
         return $this->hasMany(Pdf::class);
     }

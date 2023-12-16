@@ -16,7 +16,7 @@ class blogCategory extends Model
         'description_ar',
     ];
 
-    public function BasicArtical(): HasMany
+    public function blog(): HasMany
     {
         return $this->hasMany(blog::class);
     }

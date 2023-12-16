@@ -17,7 +17,7 @@ class VideosCategory extends Model
         'description_ar',
     ];
 
-    public function BasicArtical(): HasMany
+    public function video(): HasMany
     {
         return $this->hasMany(Videos::class);
     }

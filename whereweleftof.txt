@@ -38,3 +38,7 @@ ____________________________________
 
 made the changes the database and added resources my brain hurt i want league
 tomorrow  fix the dashboard in admin and then handle the displays and onga bonga dilvere the fucken product and run
+
+____________________________________
+
+make writer name clickable and query in books by it like u did in category maybe even use the category class for it

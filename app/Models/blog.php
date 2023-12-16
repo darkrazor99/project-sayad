@@ -13,7 +13,7 @@ class blog extends Model
         'header',
         'body',
         'img',
-        'categories_id',
+        'category_id',
         'shortDesc',
         'published_at'
     ];

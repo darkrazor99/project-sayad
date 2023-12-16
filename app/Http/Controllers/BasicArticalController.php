@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Category;
 use App\Models\GetInTouch;
 use App\Models\BasicArtical;
@@ -15,22 +16,12 @@ class BasicArticalController extends Controller
     public function index()
     {
 
-        $test = BasicArtical::where('isArabic', 0)->orderby('created_at', 'desc')->with('category')->paginate(10);
-        return view('blog', [
-            'articals' => $test,
-            'category' => Category::get(),
-            'getInTouch' => GetInTouch::all()[0]
-        ]);
+        //
     }
 
     public function indexAr()
     {
-        $test = BasicArtical::where('isArabic', 1)->orderby('created_at', 'desc')->with('category')->paginate(10);
-        return view('blog-ar', [
-            'articals' => $test,
-            'category' => Category::get(),
-            'getInTouch' => GetInTouch::all()[0]
-        ]);
+        //
     }
 
     /**
@@ -54,49 +45,59 @@ class BasicArticalController extends Controller
      */
     public function show(string $id)
     {
-        $test = BasicArtical::where('isArabic', 0)->orderby('created_at', 'desc')->with('category')->paginate(10);
+        // $focus = BasicArtical::where('id', $id)->get();
+        // $rest = BasicArtical::where('book_id', $focus[0]->book_id)->orderby('created_at', 'desc')->paginate(
+        //     $perPage = 1,
+        //     $page = $num
+        // );
+        // dd(request('page'));
+        $focus = Book::where('id', $id)->get();
+        $num = (request('page') + 0);
+        $rest = BasicArtical::where('book_id', $focus[0]->id)->orderby('created_at', 'asc')->paginate(
+            $perPage = 1,
+            $columns = ['*'],
+            $pageName = 'page',
+            $page = $num
+        );
+        // dd($rest);
         $isArabic = false;
-        $all = BasicArtical::where('isArabic', 0)->orderby('published_at', 'desc')->take(6)->with('category')->get();
-        $focus = BasicArtical::where('id', $id)->with('category')->get();
-        if ($focus->count()>0){
+        if ($focus->count() > 0) {
             return view('detail', [
-                'articals' => $all,
+                'articals' => $rest,
                 'category' => Category::get(),
-                'focus' => $focus,
+                // 'focus' => $focus,
+                'hasVid' => false,
+                'hasPdf' => false,
+                'isStory' => true,
+                'isArt'=>false,
                 'isArabic' => $isArabic,
                 'getInTouch' => GetInTouch::all()[0]
             ]);
-        }
-        else {
-            return view('blog', [
-                'articals' => $test,
-                'category' => Category::get(),
-                'getInTouch' => GetInTouch::all()[0]
-            ]);
+        } else {
+            return back();
         }
 
     }
     public function showAR(string $id)
     {
-        $test = BasicArtical::where('isArabic', 1)->orderby('created_at', 'desc')->with('category')->paginate(10);
+        $focus = BasicArtical::where('id', $id)->with('book')->get();
+        $rest = BasicArtical::where('book_id', $focus[0]->book_id)->orderby('created_at', 'desc')->paginate(1);
+
         $isArabic = true;
-        $all = BasicArtical::where('isArabic', 1)->orderby('published_at', 'desc')->take(6)->with('category')->get();
-        $focus = BasicArtical::where('id', $id)->with('category')->get();
-        if ($focus->count()>0){
+        if ($focus->count() > 0) {
             return view('detail', [
-                'articals' => $all,
+                'articals' => $rest,
                 'category' => Category::get(),
                 'focus' => $focus,
+                'hasVid' => false,
+                'hasPdf' => false,
+                'isStory' => true,
+                'isArt'=>false,
                 'isArabic' => $isArabic,
                 'getInTouch' => GetInTouch::all()[0]
             ]);
-        }
-        else {
-            return view('blog', [
-                'articals' => $test,
-                'category' => Category::get(),
-                'getInTouch' => GetInTouch::all()[0]
-            ]);
+        } else {
+            return back();
         }
     }
 

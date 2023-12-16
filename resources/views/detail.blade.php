@@ -90,7 +90,21 @@
                         <a href="{{ url('/index-ar') }}" class="nav-item nav-link">Home</a>
                         <a href="{{ url('/about-ar') }}" class="nav-item nav-link">About</a>
                         <a href="{{ url('/service-ar') }}" class="nav-item nav-link">Services</a>
-                        <a href="{{ url('/blog-ar') }}" class="nav-item nav-link">Blog Grid</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Blog</a>
+                            <div class="dropdown-menu m-0">
+                                {{-- books --}}
+                                <a href="{{ url('/books-ar') }}" class="dropdown-item">books</a>
+                                {{-- photos --}}
+                                <a href="{{ url('/art-ar') }}" class="dropdown-item">art</a>
+                                {{-- pdf --}}
+                                <a href="{{ url('/pdf-ar') }}" class="dropdown-item">pdf</a>
+                                {{-- videos --}}
+                                <a href="{{ url('/vid-ar') }}" class="dropdown-item">videos</a>
+                                {{-- normale blogs --}}
+                                <a href="{{ url('/blog-ar') }}" class="dropdown-item">Blog</a>
+                            </div>
+                        </div>
                         <a href="{{ url('/contact-ar') }}" class="nav-item nav-link">Contact</a>
                     </div>
                 @else
@@ -98,7 +112,21 @@
                         <a href="{{ url('/') }}" class="nav-item nav-link">Home</a>
                         <a href="{{ url('/about') }}" class="nav-item nav-link">About</a>
                         <a href="{{ url('/service') }}" class="nav-item nav-link">Services</a>
-                        <a href="{{ url('/blog') }}" class="nav-item nav-link">Blog Grid</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Blog</a>
+                            <div class="dropdown-menu m-0">
+                                {{-- books --}}
+                                <a href="{{ url('/books') }}" class="dropdown-item">books</a>
+                                {{-- photos --}}
+                                <a href="{{ url('/art') }}" class="dropdown-item">art</a>
+                                {{-- pdf --}}
+                                <a href="{{ url('/pdf') }}" class="dropdown-item">pdf</a>
+                                {{-- videos --}}
+                                <a href="{{ url('/vid') }}" class="dropdown-item">videos</a>
+                                {{-- normale blogs --}}
+                                <a href="{{ url('/blog') }}" class="dropdown-item">Blog</a>
+                            </div>
+                        </div>
                         <a href="{{ url('/contact') }}" class="nav-item nav-link">Contact</a>
                     </div>
                 @endif
@@ -129,34 +157,56 @@
             <div class="row g-5">
                 <div class="col-lg-8">
                     <!-- Blog Detail Start -->
-                    <div class="mb-5">
-                        @if ($focus[0]->hasVid)
-                            {{-- display video here --}}
-                            <video width="800" height="800" controls>
-                                <source src="{{ asset('storage/' . $focus[0]->video) }}" type="video/mp4">
-                                <source src="{{ asset('storage/' . $focus[0]->video) }}" type="video/ogg">
-                                <source src="{{ asset('storage/' . $focus[0]->video) }}" type="video/webm">
-
-                                Your browser does not support the video tag.
-                            </video>
-                        @else
-                            @if ($focus[0]->img != null)
+                    @if ($isStory)
+                        <div class="mb-5">
+                            @if ($articals[0]->img != null)
                                 <img class="img-fluid w-100 rounded mb-5"
-                                    src="{{ asset('storage/' . $focus[0]->img) }}" alt="">
+                                    src="{{ asset('storage/' . $articals[0]->img) }}" alt="">
                             @endif
-                        @endif
 
-                        <h1 class="mb-4">{{ $focus[0]->header }}</h1>
-                        <p>{{ $focus[0]->body }}</p>
 
-                        @if ($focus[0]->hasPdf)
-                            {{-- display pdf --}}
-                            <object data="{{ asset('storage/' . $focus[0]->pdf) }}" type="application/pdf"
-                                width="600" height="700">
+                            <h1 class="mb-4">{{ $articals[0]->header }}</h1>
+                            <p>{{ $articals[0]->body }}</p>
 
-                            </object>
-                        @endif
-                    </div>
+
+                        </div>
+                        <div class="col-12 wow slideInUp" data-wow-delay="0.1s">
+                            {{-- paging the css and the html comes from Resources/vendor/livewire/bootstrap.blade.php --}}
+                            {{ $articals->links() }}
+                        </div>
+                    @else
+                        <div class="mb-5">
+                            @if ($hasVid)
+                                {{-- display video here --}}
+                                <video width="800" height="800" controls>
+                                    <source src="{{ asset('storage/' . $focus[0]->vid) }}" type="video/mp4">
+                                    <source src="{{ asset('storage/' . $focus[0]->vid) }}" type="video/ogg">
+                                    <source src="{{ asset('storage/' . $focus[0]->vid) }}" type="video/webm">
+
+                                    Your browser does not support the video tag.
+                                </video>
+                            @else
+                                @if ($focus[0]->img != null)
+                                    <img class="img-fluid w-100 rounded mb-5"
+                                        src="{{ asset('storage/' . $focus[0]->img) }}" alt="">
+                                @endif
+                            @endif
+
+                            <h1 class="mb-4">{{ $focus[0]->header }}</h1>
+                            <p>{{ $focus[0]->body }}</p>
+
+                            @if ($hasPdf)
+                                {{-- display pdf --}}
+                                <object data="{{ asset('storage/' . $focus[0]->pdf) }}" type="application/pdf"
+                                    width="600" height="700">
+
+                                </object>
+                            @endif
+
+                        </div>
+
+                    @endif
+
                     <!-- Blog Detail End -->
                     {{-- comments make them work later monkey --}}
 
@@ -238,45 +288,187 @@
                         <div class="link-animated d-flex flex-column justify-content-start">
                             @foreach ($category as $item)
                                 @if ($isArabic)
-                                    <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-                                        href="{{ url('/category-ar/' . $item->id) }}"><i
-                                            class="bi bi-arrow-right me-2"></i>{{ $item->name_ar }}</a>
+                                    @if ($hasPdf)
+                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
+                                            href="{{ url('/pdfcategory-ar/' . $item->id) }}"><i
+                                                class="bi bi-arrow-right me-2"></i>{{ $item->name_ar }}</a>
+                                    @elseif ($hasVid)
+                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
+                                            href="{{ url('/vidcategory-ar/' . $item->id) }}"><i
+                                                class="bi bi-arrow-right me-2"></i>{{ $item->name_ar }}</a>
+                                    @elseif($isArt)
+                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
+                                            href="{{ url('/artcategory-ar/' . $item->id) }}"><i
+                                                class="bi bi-arrow-right me-2"></i>{{ $item->name_ar }}</a>
+                                    @elseif($isStory)
+                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
+                                            href="{{ url('/category-ar/' . $item->id) }}"><i
+                                                class="bi bi-arrow-right me-2"></i>{{ $item->name_ar }}</a>
+                                    @else
+                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
+                                            href="{{ url('/blogcategory-ar/' . $item->id) }}"><i
+                                                class="bi bi-arrow-right me-2"></i>{{ $item->name_ar }}</a>
+                                    @endif
                                 @else
-                                    <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-                                        href="{{ url('/category/' . $item->id) }}"><i
-                                            class="bi bi-arrow-right me-2"></i>{{ $item->name }}</a>
+                                    @if ($hasPdf)
+                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
+                                            href="{{ url('/pdfcategory/' . $item->id) }}"><i
+                                                class="bi bi-arrow-right me-2"></i>{{ $item->name_ar }}</a>
+                                    @elseif ($hasVid)
+                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
+                                            href="{{ url('/vidcategory/' . $item->id) }}"><i
+                                                class="bi bi-arrow-right me-2"></i>{{ $item->name_ar }}</a>
+                                    @elseif($isArt)
+                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
+                                            href="{{ url('/artcategory/' . $item->id) }}"><i
+                                                class="bi bi-arrow-right me-2"></i>{{ $item->name_ar }}</a>
+                                    @elseif($isStory)
+                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
+                                            href="{{ url('/category/' . $item->id) }}"><i
+                                                class="bi bi-arrow-right me-2"></i>{{ $item->name_ar }}</a>
+                                    @else
+                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
+                                            href="{{ url('/blogcategory/' . $item->id) }}"><i
+                                                class="bi bi-arrow-right me-2"></i>{{ $item->name_ar }}</a>
+                                    @endif
                                 @endif
                             @endforeach
                         </div>
                     </div>
                     <!-- Category End -->
+                    @if ($isStory)
+                        <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+                            <div class="section-title section-title-sm position-relative pb-3 mb-4">
 
-                    <!-- Recent Post Start -->
-                    <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-                        <div class="section-title section-title-sm position-relative pb-3 mb-4">
-                            <h3 class="mb-0">Recent Post</h3>
-                        </div>
-                        @foreach ($articals as $artical)
-                            <div class="d-flex rounded overflow-hidden mb-3">
-                                <img class="img-fluid" src="{{ asset('storage/' . $artical->img) }}"
-                                    style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                                @if ($isArabic)
-                                    <a href="{{ url('/blog-ar/' . $artical->id) }}"
-                                        class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
-                                        {{ $artical->header }}
-                                    </a>
-                                @else
-                                    <a href="{{ url('/blog/' . $artical->id) }}"
-                                        class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
-                                        {{ $artical->header }}
-                                    </a>
-                                @endif
+                                <h3 class="mb-0">Quick Links</h3>
+                            </div>
+                            <div class="link-animated d-flex flex-column justify-content-start">
+                                <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
+                                    href="{{ url('/books') }}"><i class="bi bi-arrow-right me-2"></i>return</a>
 
                             </div>
-                        @endforeach
-                    </div>
-                    <!-- Recent Post End -->
+                        </div>
+                    @endif
 
+                    @if (!$isStory)
+                        <!-- Recent Post Start -->
+                        <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+                            <div class="section-title section-title-sm position-relative pb-3 mb-4">
+                                <h3 class="mb-0">Recent Post</h3>
+                            </div>
+                            @if ($articals->count() < 6)
+                                @foreach ($articals as $artical)
+                                    <div class="d-flex rounded overflow-hidden mb-3">
+                                        <img class="img-fluid" src="{{ asset('storage/' . $artical->img) }}"
+                                            style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                                        @if ($isArabic)
+                                            {{-- /books-ar/{id} --}}
+                                            @if ($hasPdf)
+                                                <a href="{{ url('/pdf-ar/' . $artical->id) }}"
+                                                    class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
+                                                    {{ $artical->header }}
+                                                </a>
+                                            @elseif ($hasVid)
+                                                <a href="{{ url('/vid-ar/' . $artical->id) }}"
+                                                    class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
+                                                    {{ $artical->header }}
+                                                </a>
+                                            @elseif($isArt)
+                                                <a href="{{ url('/art-ar/' . $artical->id) }}"
+                                                    class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
+                                                    {{ $artical->header }}
+                                                </a>
+                                            @else
+                                                <a href="{{ url('/blog-ar/' . $artical->id) }}"
+                                                    class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
+                                                    {{ $artical->header }}
+                                                </a>
+                                            @endif
+                                        @else
+                                            {{-- /books-ar/{id} --}}
+
+                                            @if ($hasPdf)
+                                                <a href="{{ url('/pdf/' . $artical->id) }}"
+                                                    class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
+                                                    {{ $artical->header }}
+                                                </a>
+                                            @elseif ($hasVid)
+                                                <a href="{{ url('/vid/' . $artical->id) }}"
+                                                    class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
+                                                    {{ $artical->header }}
+                                                </a>
+                                            @elseif($isArt)
+                                                <a href="{{ url('/art/' . $artical->id) }}"
+                                                    class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
+                                                    {{ $artical->header }}
+                                                </a>
+                                            @else
+                                                <a href="{{ url('/blog/' . $artical->id) }}"
+                                                    class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
+                                                    {{ $artical->header }}
+                                                </a>
+                                            @endif
+                                        @endif
+                                    </div>
+                                @endforeach
+                            @else
+                                @for ($i = 0; $i < 6; $i++)
+                                    <div class="d-flex rounded overflow-hidden mb-3">
+                                        <img class="img-fluid" src="{{ asset('storage/' . $articals[$i]->img) }}"
+                                            style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                                        @if ($isArabic)
+                                            {{-- /books-ar/{id} --}}
+
+                                            @if ($hasPdf)
+                                                <a href="{{ url('/pdf-ar/' . $articals[$i]->id) }}"
+                                                    class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
+                                                    {{ $articals[$i]->header }}
+                                                </a>
+                                            @elseif ($hasVid)
+                                                <a href="{{ url('/vid-ar/' . $articals[$i]->id) }}"
+                                                    class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
+                                                    {{ $articals[$i]->header }}
+                                                </a>
+                                            @elseif($isArt)
+                                                <a href="{{ url('/art-ar/' . $artical->id) }}"
+                                                    class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
+                                                    {{ $artical->header }}
+                                                </a>
+                                            @else
+                                                <a href="{{ url('/blog-ar/' . $artical->id) }}"
+                                                    class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
+                                                    {{ $artical->header }}
+                                                </a>
+                                            @endif
+                                        @else
+                                            @if ($hasPdf)
+                                                <a href="{{ url('/pdf/' . $articals[$i]->id) }}"
+                                                    class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
+                                                    {{ $articals[$i]->header }}
+                                                </a>
+                                            @elseif ($hasVid)
+                                                <a href="{{ url('/vid/' . $articals[$i]->id) }}"
+                                                    class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
+                                                    {{ $articals[$i]->header }}
+                                                </a>
+                                            @elseif($isArt)
+                                                <a href="{{ url('/art/' . $artical->id) }}"
+                                                    class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
+                                                    {{ $artical->header }}
+                                                </a>
+                                            @else
+                                                <a href="{{ url('/blog/' . $artical->id) }}"
+                                                    class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
+                                                    {{ $artical->header }}
+                                                </a>
+                                            @endif
+                                        @endif
+                                    </div>
+                                @endfor
+                            @endif
+                        </div>
+                        <!-- Recent Post End -->
+                    @endif
 
                 </div>
                 <!-- Sidebar End -->

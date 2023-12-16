@@ -2,20 +2,26 @@
 
 namespace App\Providers;
 
+use App\Models\blog;
+use App\Models\Book;
+use App\Models\Drawing;
 use App\Models\Info;
 use App\Models\Carousel;
-use App\Models\PdfArtical;
+use App\Models\Pdf;
 use App\Models\TeamMember;
 use App\Models\BasicArtical;
-use App\Models\VideoArtical;
+use App\Models\Videos;
+use App\Observers\blogObserver;
+use App\Observers\BookObserver;
+use App\Observers\DrawingObserver;
 use App\Observers\InfoObserver;
 use App\Observers\CarouselObserver;
-use App\Observers\PdfArticalObserver;
+use App\Observers\PdfObserver;
 use App\Observers\TeamMemberObserver;
+use App\Observers\VideosObserver;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use App\Observers\BasicArticalObserver;
-use App\Observers\VideoArticalObserver;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -41,6 +47,11 @@ class EventServiceProvider extends ServiceProvider
         Carousel::observe(CarouselObserver::class);
         Info::observe(InfoObserver::class);
         TeamMember::observe(TeamMemberObserver::class);
+        blog::observe(blogObserver::class);
+        Book::observe(BookObserver::class);
+        Drawing::observe(DrawingObserver::class);
+        Pdf::observe(PdfObserver::class);
+        Videos::observe(VideosObserver::class);
     }
 
     /**

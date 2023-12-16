@@ -24,23 +24,73 @@ class PdfResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('category_id')
-                    ->relationship('category', 'name')
-                    ->required(),
-                Forms\Components\TextInput::make('header')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('shortDesc')
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('body')
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('img')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('pdf')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\DatePicker::make('published_at')
-                    ->required(),
+
+                Forms\Components\Group::make()
+                    ->schema([
+                        Forms\Components\Section::make('مقال')
+                            ->schema([
+                                Forms\Components\TextInput::make('header')
+                                    ->label('عنوان')
+                                    ->required()
+                                    ->maxLength(255)
+                                ,
+                                Forms\Components\Textarea::make('shortDesc')
+                                    ->label('شرح مبسط')
+                                    ->autosize()
+                                    ->rows(5)
+                                    ->maxLength(255),
+
+                                Forms\Components\Textarea::make('body')
+                                    ->label('محتوى')
+                                    ->autosize()
+                                    ->required()
+                                    ->rows(10),
+
+                            ]),
+
+
+                    ]),
+                Forms\Components\Group::make()
+                    ->schema([
+                        Forms\Components\Section::make('Category')
+                            ->schema([
+                                Forms\Components\Select::make('category_id')
+                                    ->relationship('category', 'name_ar')
+                                    ->label('Category')
+                                    ->required()
+                                    ->native(false),
+                            ]),
+
+
+
+
+                        Forms\Components\Section::make('Image')
+                            ->schema([
+                                Forms\Components\FileUpload::make('img')
+                                    ->image()
+                                    ->label('Image')
+                                    ->imageEditor()
+                                    ->required()
+                                    ->hint("if you want to use the Editor make sure to save first")
+                                    ->dehydrateStateUsing(function ($state) {
+                                        $files = array_values($state ?? []);
+                                        return end($files);
+                                    })
+                                    ->directory("img"),
+                            ]),
+                        Forms\Components\Section::make('Pdf')
+                            ->schema([
+                                Forms\Components\FileUpload::make('pdf')
+                                    ->directory("pdf")
+                                    ->label('Pdf')
+                                    ->openable()
+                                    ->downloadable()
+                                    ->required()
+                                    ->acceptedFileTypes(['application/pdf']),
+                            ]),
+
+                    ]),
+
             ]);
     }
 
@@ -48,20 +98,14 @@ class PdfResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('category.name')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('header')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('shortDesc')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('img')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('pdf')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('published_at')
-                    ->date()
+                    ->searchable()
+                    ->label('عنوان')
                     ->sortable(),
+                Tables\Columns\TextColumn::make('category.name_ar')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -70,9 +114,13 @@ class PdfResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])
+
+
+            ])->defaultSort('created_at', 'desc')
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('category')
+                    ->relationship('category', 'name_ar')
+                    ->native(false),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

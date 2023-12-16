@@ -17,9 +17,9 @@ class Category extends Model
         'description_ar',
     ];
 
-    public function BasicArtical(): HasMany
+    public function Book(): HasMany
     {
-        return $this->hasMany(BasicArtical::class);
+        return $this->hasMany(Book::class);
     }
 
 }

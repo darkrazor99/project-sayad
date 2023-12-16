@@ -2,9 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Drawing;
+use App\Models\DrawingCategory;
+use App\Models\Pdf;
+use App\Models\blog;
+use App\Models\Book;
 use App\Models\Category;
 use App\Models\GetInTouch;
+use App\Models\PdfCategory;
 use App\Models\BasicArtical;
+use App\Models\blogCategory;
+use App\Models\Videos;
+use App\Models\VideosCategory;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -39,26 +48,165 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        $isArabic=false;
-        $test = BasicArtical::where('category_id', $id)->where('isArabic', 0)->orderby('published_at', 'desc')->with('category')->paginate(10);
-        return view('blog', [
+        $books = Book::orderby('created_at', 'desc')->take(6)->get();
+        $test = Book::where('category_id', $id)->orderby('created_at', 'desc')->with('category')->paginate(10);
+        return view('books', [
             'articals' => $test,
-            'isArabic'=>$isArabic,
+            'show' => false,
+            'books' => $books,
             'category' => Category::get(),
             'getInTouch' => GetInTouch::all()[0]
         ]);
     }
     public function showAr(string $id)
     {
-        $isArabic=true;
-        $test = BasicArtical::where('category_id', $id)->where('isArabic', 1)->orderby('published_at', 'desc')->with('category')->paginate(10);
-        return view('blog-ar', [
+        $books = Book::orderby('created_at', 'desc')->take(6)->get();
+        $test = Book::where('category_id', $id)->orderby('created_at', 'desc')->with('category')->paginate(10);
+        return view('books-ar', [
             'articals' => $test,
-            'isArabic'=>$isArabic,
+            'show' => false,
+            'books' => $books,
             'category' => Category::get(),
             'getInTouch' => GetInTouch::all()[0]
         ]);
     }
+
+    public function writer(string $name)
+    {
+        $books = Book::orderby('created_at', 'desc')->take(6)->get();
+        $test = Book::where('writerName', $name)->orderby('created_at', 'desc')->with('category')->paginate(10);
+        return view('books', [
+            'articals' => $test,
+            'show' => false,
+            'books' => $books,
+            'category' => Category::get(),
+            'getInTouch' => GetInTouch::all()[0]
+        ]);
+    }
+    public function writerAr(string $name)
+    {
+        $books = Book::orderby('created_at', 'desc')->take(6)->get();
+        $test = Book::where('writerName', $name)->orderby('created_at', 'desc')->with('category')->paginate(10);
+        return view('books-ar', [
+            'articals' => $test,
+            'show' => false,
+            'books' => $books,
+            'category' => Category::get(),
+            'getInTouch' => GetInTouch::all()[0]
+        ]);
+    }
+
+    public function showB(string $id)
+    {
+        $test = blog::where('category_id', $id)->orderby('created_at', 'desc')->with('category')->paginate(10);
+        return view('blog', [
+            'articals' => $test,
+            'category' => blogCategory::get(),
+            'hasVid' => false,
+            'hasPdf' => false,
+            'isStory' => false,
+            'isArt' => false,
+
+            'getInTouch' => GetInTouch::all()[0]
+        ]);
+    }
+    public function showBAr(string $id)
+    {
+        $test = blog::where('category_id', $id)->orderby('created_at', 'desc')->with('category')->paginate(10);
+        return view('blog-ar', [
+            'articals' => $test,
+            'category' => blogCategory::get(),
+            'hasVid' => false,
+            'hasPdf' => false,
+            'isStory' => false,
+            'isArt' => false,
+            'getInTouch' => GetInTouch::all()[0]
+        ]);
+    }
+    public function showC(string $id)
+    {
+        $test = Pdf::where('category_id', $id)->orderby('created_at', 'desc')->with('category')->paginate(10);
+        return view('blog', [
+            'articals' => $test,
+            'category' => PdfCategory::get(),
+            'hasVid' => false,
+            'hasPdf' => true,
+            'isStory' => false,
+            'isArt' => false,
+
+            'getInTouch' => GetInTouch::all()[0]
+        ]);
+    }
+    public function showCAr(string $id)
+    {
+        $test = Pdf::where('category_id', $id)->orderby('created_at', 'desc')->with('category')->paginate(10);
+        return view('blog-ar', [
+            'articals' => $test,
+            'category' => PdfCategory::get(),
+            'hasVid' => false,
+            'hasPdf' => true,
+            'isStory' => false,
+            'isArt' => false,
+            'getInTouch' => GetInTouch::all()[0]
+        ]);
+    }
+
+    public function showD(string $id)
+    {
+        $test = Videos::where('category_id', $id)->orderby('created_at', 'desc')->with('category')->paginate(10);
+        return view('blog', [
+            'articals' => $test,
+            'category' => VideosCategory::get(),
+            'hasVid' => true,
+            'hasPdf' => false,
+            'isStory' => false,
+            'isArt' => false,
+
+            'getInTouch' => GetInTouch::all()[0]
+        ]);
+    }
+    public function showDAr(string $id)
+    {
+        $test = Videos::where('category_id', $id)->orderby('created_at', 'desc')->with('category')->paginate(10);
+        return view('blog-ar', [
+            'articals' => $test,
+            'category' => VideosCategory::get(),
+            'hasVid' => true,
+            'hasPdf' => false,
+            'isStory' => false,
+            'isArt' => false,
+            'getInTouch' => GetInTouch::all()[0]
+        ]);
+    }
+    public function showE(string $id)
+    {
+        $test = Drawing::where('category_id', $id)->orderby('created_at', 'desc')->with('category')->paginate(10);
+        return view('blog', [
+            'articals' => $test,
+            'category' => DrawingCategory::get(),
+            'hasVid' => false,
+            'hasPdf' => false,
+            'isStory' => false,
+            'isArt' => true,
+
+            'getInTouch' => GetInTouch::all()[0]
+        ]);
+    }
+    public function showEAr(string $id)
+    {
+        $test = Drawing::where('category_id', $id)->orderby('created_at', 'desc')->with('category')->paginate(10);
+        return view('blog-ar', [
+            'articals' => $test,
+            'category' => DrawingCategory::get(),
+            'hasVid' => false,
+            'hasPdf' => false,
+            'isStory' => false,
+            'isArt' => true,
+            'getInTouch' => GetInTouch::all()[0]
+        ]);
+    }
+
+
 
     /**
      * Show the form for editing the specified resource.

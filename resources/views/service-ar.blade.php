@@ -90,8 +90,21 @@
                     <a href="{{ url('/index-ar') }}" class="nav-item nav-link">Home</a>
                     <a href="{{ url('/about-ar') }}" class="nav-item nav-link">About</a>
                     <a href="{{ url('/service-ar') }}" class="nav-item nav-link active">Services</a>
-                    <a href="{{ url('/blog-ar') }}" class="nav-item nav-link">Blog Grid</a>
-
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Blog</a>
+                        <div class="dropdown-menu m-0">
+                            {{-- books --}}
+                            <a href="{{ url('/books-ar') }}" class="dropdown-item">books</a>
+                            {{-- photos --}}
+                            <a href="{{ url('/art-ar') }}" class="dropdown-item">art</a>
+                            {{-- pdf --}}
+                            <a href="{{ url('/pdf-ar') }}" class="dropdown-item">pdf</a>
+                            {{-- videos --}}
+                            <a href="{{ url('/vid-ar') }}" class="dropdown-item">videos</a>
+                            {{-- normale blogs --}}
+                            <a href="{{ url('/blog-ar') }}" class="dropdown-item">Blog</a>
+                        </div>
+                    </div>
                     <a href="{{ url('/contact-ar') }}" class="nav-item nav-link">Contact</a>
                 </div>
 

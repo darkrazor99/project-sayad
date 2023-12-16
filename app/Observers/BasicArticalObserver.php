@@ -23,12 +23,12 @@ class BasicArticalObserver
         if ($basicArtical->isDirty("img") && $basicArtical->getOriginal("img") !== null) {
             Storage::disk("public")->delete($basicArtical->getOriginal("img"));
         }
-        if ($basicArtical->isDirty("pdf") && $basicArtical->getOriginal("pdf") !== null) {
-            Storage::disk("public")->delete($basicArtical->getOriginal("pdf"));
-        }
-        if ($basicArtical->isDirty("video") && $basicArtical->getOriginal("video") !== null) {
-            Storage::disk("public")->delete($basicArtical->getOriginal("video"));
-        }
+        // if ($basicArtical->isDirty("pdf") && $basicArtical->getOriginal("pdf") !== null) {
+        //     Storage::disk("public")->delete($basicArtical->getOriginal("pdf"));
+        // }
+        // if ($basicArtical->isDirty("video") && $basicArtical->getOriginal("video") !== null) {
+        //     Storage::disk("public")->delete($basicArtical->getOriginal("video"));
+        // }
     }
 
     /**
@@ -39,12 +39,12 @@ class BasicArticalObserver
         if (!is_null($basicArtical->img)) {
             Storage::disk("public")->delete($basicArtical->img);
         }
-        if (!is_null($basicArtical->pdf)) {
-            Storage::disk("public")->delete($basicArtical->pdf);
-        }
-        if (!is_null($basicArtical->video)) {
-            Storage::disk("public")->delete($basicArtical->video);
-        }
+        // if (!is_null($basicArtical->pdf)) {
+        //     Storage::disk("public")->delete($basicArtical->pdf);
+        // }
+        // if (!is_null($basicArtical->video)) {
+        //     Storage::disk("public")->delete($basicArtical->video);
+        // }
     }
 
     /**

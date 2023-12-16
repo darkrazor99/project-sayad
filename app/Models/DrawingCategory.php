@@ -16,7 +16,7 @@ class DrawingCategory extends Model
         'description_ar',
     ];
 
-    public function BasicArtical(): HasMany
+    public function drawing(): HasMany
     {
         return $this->hasMany(Drawing::class);
     }

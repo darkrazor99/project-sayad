@@ -97,6 +97,11 @@ class AboutusResource extends Resource
                                     ->image()
                                     ->label('Image')
                                     ->imageEditor()
+                                    ->hint("if you want to use the Editor make sure to save")
+                                    ->dehydrateStateUsing(function ($state) {
+                                        $files = array_values($state ?? []);
+                                        return end($files);
+                                      })
                                     ->directory("img"),
                             ]),
                     ])->columnSpanFull(),

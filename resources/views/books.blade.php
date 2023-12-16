@@ -102,19 +102,12 @@
                             <a href="{{ url('/vid') }}" class="dropdown-item">videos</a>
                             {{-- normale blogs --}}
                             <a href="{{ url('/blog') }}" class="dropdown-item">Blog</a>
+
                         </div>
                     </div>
                     <a href="{{ url('/contact') }}" class="nav-item nav-link ">Contact</a>
                 </div>
-                @if ($hasPdf)
-                    <a href="{{ url('/pdf-ar') }}" class="btn btn-success py-2 px-4 ms-3">اللغة العربية</a>
-                @elseif ($hasVid)
-                    <a href="{{ url('/vid-ar') }}" class="btn btn-success py-2 px-4 ms-3">اللغة العربية</a>
-                @elseif($isArt)
-                    <a href="{{ url('/art-ar') }}" class="btn btn-success py-2 px-4 ms-3">اللغة العربية</a>
-                @else
-                    <a href="{{ url('/blog-ar') }}" class="btn btn-success py-2 px-4 ms-3">اللغة العربية</a>
-                @endif
+                <a href="{{ url('/books-ar') }}" class="btn btn-success py-2 px-4 ms-3">اللغة العربية</a>
             </div>
         </nav>
 
@@ -150,37 +143,46 @@
                                     <div class="blog-img position-relative overflow-hidden">
                                         <img class="img-fluid" src="{{ asset('storage/' . $articals[$i]->img) }}"
                                             alt="">
-                                        <a class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4"
-                                            role="link"
-                                            aria-disabled="true">{{ $articals[$i]->category['name'] }}</a>
+                                        {{-- {{dd($mycat);}} --}}
+                                        @if ($show)
+                                            <a class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4"
+                                                href="{{ url('/category/' . $mycat['id']) }}">{{ $mycat['name'] }}</a>
+                                        @else
+                                            {{-- {{dd($articals);}} --}}
+                                            <a class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4"
+                                                href="{{ url('/category/' . $articals[$i]->category_id) }}">{{ $articals[$i]->category['name'] }}</a>
+                                        @endif
+
                                     </div>
                                     <div class="p-4">
-                                        {{-- <div class="d-flex mb-3">
-                                            <small class="me-3"><i class="far fa-user text-primary me-2"></i>John
-                                                Doe</small>
-                                            <small><i class="far fa-calendar-alt text-primary me-2"></i>01 Jan,
-                                                2045</small>
-                                        </div> --}}
-                                        <h4 class="mb-3">{{ $articals[$i]->header }}</h4>
+                                        <div class="d-flex mb-3">
+                                            @if (!$show)
+                                                <a href="{{ url('/writer/' . $articals[$i]->writerName) }}">
+                                                    <small class="me-3"><i
+                                                            class="far fa-user text-primary me-2"></i>
+                                                        {{ $articals[$i]->writerName }}
+                                                    </small>
+                                                </a>
+                                            @endif
+                                            {{-- <small><i class="far fa-calendar-alt text-primary me-2"></i>01 Jan,
+                                                2045</small> --}}
+                                        </div>
+                                        @if ($show)
+                                            <h4 class="mb-3">{{ $articals[$i]->header }}</h4>
+                                        @else
+                                            <h4 class="mb-3">{{ $articals[$i]->name }}</h4>
+                                        @endif
                                         <p>{{ $articals[$i]->shortDesc }}</p>
-
-                                        @if ($hasPdf)
+                                        @if ($show)
                                             <a class="text-uppercase"
-                                                href="{{ url('/pdf/' . $articals[$i]->id) }}">Read
-                                                More <i class="bi bi-arrow-right"></i></a>
-                                        @elseif ($hasVid)
-                                            <a class="text-uppercase"
-                                                href="{{ url('/vid/' . $articals[$i]->id) }}">Read
-                                                More <i class="bi bi-arrow-right"></i></a>
-                                        @elseif($isArt)
-                                            <a class="text-uppercase"
-                                                href="{{ url('/art/' . $articals[$i]->id) }}">Read
+                                                href="{{ url('/story/' . $articals[$i]->book_id . '?page=' . ($articals->count() - $i)) }}">Read
                                                 More <i class="bi bi-arrow-right"></i></a>
                                         @else
                                             <a class="text-uppercase"
-                                                href="{{ url('/blog/' . $articals[$i]->id) }}">Read
+                                                href="{{ url('/books/' . $articals[$i]->id) }}">Read
                                                 More <i class="bi bi-arrow-right"></i></a>
                                         @endif
+
                                     </div>
                                 </div>
                             </div>
@@ -205,23 +207,9 @@
                         </div>
                         <div class="link-animated d-flex flex-column justify-content-start">
                             @foreach ($category as $item)
-                                @if ($hasPdf)
-                                    <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-                                        href="{{ url('/pdfcategory/' . $item->id) }}"><i
-                                            class="bi bi-arrow-right me-2"></i>{{ $item->name }}</a>
-                                @elseif ($hasVid)
-                                    <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-                                        href="{{ url('/vidcategory/' . $item->id) }}"><i
-                                            class="bi bi-arrow-right me-2"></i>{{ $item->name }}</a>
-                                @elseif($isArt)
-                                    <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-                                        href="{{ url('/artcategory/' . $item->id) }}"><i
-                                            class="bi bi-arrow-right me-2"></i>{{ $item->name }}</a>
-                                @else
-                                    <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-                                        href="{{ url('/blogcategory/' . $item->id) }}"><i
-                                            class="bi bi-arrow-right me-2"></i>{{ $item->name }}</a>
-                                @endif
+                                <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
+                                    href="{{ url('/category/' . $item->id) }}"><i
+                                        class="bi bi-arrow-right me-2"></i>{{ $item->name }}</a>
                             @endforeach
                         </div>
                     </div>
@@ -229,68 +217,18 @@
                     <!-- Recent Post Start -->
                     <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
                         <div class="section-title section-title-sm position-relative pb-3 mb-4">
-                            <h3 class="mb-0">Recent Post</h3>
+                            <h3 class="mb-0">Recent Books</h3>
                         </div>
-                        @if ($articals->count() < 6)
-                            @foreach ($articals as $artical)
-                                <div class="d-flex rounded overflow-hidden mb-3">
-                                    <img class="img-fluid" src="{{ asset('storage/' . $artical->img) }}"
-                                        style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                                    @if ($hasPdf)
-                                        <a href="{{ url('/pdf/' . $artical->id) }}"
-                                            class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
-                                            {{ $artical->header }}
-                                        </a>
-                                    @elseif ($hasVid)
-                                        <a href="{{ url('/vid/' . $artical->id) }}"
-                                            class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
-                                            {{ $artical->header }}
-                                        </a>
-                                    @elseif($isArt)
-                                        <a href="{{ url('/art/' . $artical->id) }}"
-                                            class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
-                                            {{ $artical->header }}
-                                        </a>
-                                    @else
-                                        <a href="{{ url('/blog/' . $artical->id) }}"
-                                            class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
-                                            {{ $artical->header }}
-                                        </a>
-                                    @endif
-                                </div>
-                            @endforeach
-                        @else
-                            @for ($i = 0; $i < 6; $i++)
-                                <div class="d-flex rounded overflow-hidden mb-3">
-                                    <img class="img-fluid" src="{{ asset('storage/' . $articals[$i]->img) }}"
-                                        style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                                    @if ($hasPdf)
-                                        <a href="{{ url('/pdf/' . $articals[$i]->id) }}"
-                                            class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
-                                            {{ $articals[$i]->header }}
-                                        </a>
-                                        </a>
-                                    @elseif ($hasVid)
-                                        <a href="{{ url('/vid/' . $articals[$i]->id) }}"
-                                            class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
-                                            {{ $articals[$i]->header }}
-                                        </a>
-                                        </a>
-                                    @elseif($isArt)
-                                        <a href="{{ url('/art/' . $articals[$i]->id) }}"
-                                            class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
-                                            {{ $articals[$i]->header }}
-                                        </a>
-                                    @else
-                                        <a href="{{ url('/blog/' . $articals[$i]->id) }}"
-                                            class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
-                                            {{ $articals[$i]->header }}
-                                        </a>
-                                    @endif
-                                </div>
-                            @endfor
-                        @endif
-
+                        @foreach ($books as $book)
+                            <div class="d-flex rounded overflow-hidden mb-3">
+                                <img class="img-fluid" src="{{ asset('storage/' . $book->img) }}"
+                                    style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                                <a href="{{ url('/books/' . $book->id) }}"
+                                    class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
+                                    {{ $book->name }}
+                                </a>
+                            </div>
+                        @endforeach
 
                     </div>
                     <!-- Recent Post End -->
