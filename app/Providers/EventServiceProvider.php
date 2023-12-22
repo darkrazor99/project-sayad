@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\blog;
+use App\Models\Blog;
 use App\Models\Book;
 use App\Models\Drawing;
 use App\Models\Info;
@@ -11,7 +11,7 @@ use App\Models\Pdf;
 use App\Models\TeamMember;
 use App\Models\BasicArtical;
 use App\Models\Videos;
-use App\Observers\blogObserver;
+use App\Observers\BlogObserver;
 use App\Observers\BookObserver;
 use App\Observers\DrawingObserver;
 use App\Observers\InfoObserver;
@@ -47,7 +47,7 @@ class EventServiceProvider extends ServiceProvider
         Carousel::observe(CarouselObserver::class);
         Info::observe(InfoObserver::class);
         TeamMember::observe(TeamMemberObserver::class);
-        blog::observe(blogObserver::class);
+        Blog::observe(BlogObserver::class);
         Book::observe(BookObserver::class);
         Drawing::observe(DrawingObserver::class);
         Pdf::observe(PdfObserver::class);
