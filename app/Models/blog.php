@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\BlogCategory;
 
-class blog extends Model
+class Blog extends Model
 {
     use HasFactory;
     protected $fillable = [
@@ -20,6 +21,6 @@ class blog extends Model
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(blogCategory::class);
+        return $this->belongsTo(BlogCategory::class);
     }
 }

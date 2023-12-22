@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class blogCategory extends Model
+class BlogCategory extends Model
 {
     use HasFactory;
     protected $fillable = [
@@ -18,6 +18,6 @@ class blogCategory extends Model
 
     public function blog(): HasMany
     {
-        return $this->hasMany(blog::class);
+        return $this->hasMany(Blog::class);
     }
 }
