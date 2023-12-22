@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\blog;
-use App\Models\blogCategory;
+use App\Models\Blog;
+use App\Models\BlogCategory;
 use App\Models\GetInTouch;
 use Illuminate\Http\Request;
 
@@ -14,10 +14,10 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $test = blog::orderby('created_at', 'desc')->with('category')->paginate(10);
+        $test = Blog::orderby('created_at', 'desc')->with('category')->paginate(10);
         return view('blog', [
             'articals' => $test,
-            'category' => blogCategory::get(),
+            'category' => BlogCategory::get(),
             'hasVid' => false,
             'hasPdf' => false,
             'isStory' => false,
@@ -27,10 +27,10 @@ class BlogController extends Controller
     }
     public function indexAr()
     {
-        $test = blog::orderby('created_at', 'desc')->with('category')->paginate(10);
+        $test = Blog::orderby('created_at', 'desc')->with('category')->paginate(10);
         return view('blog-ar', [
             'articals' => $test,
-            'category' => blogCategory::get(),
+            'category' => BlogCategory::get(),
             'hasVid' => false,
             'hasPdf' => false,
             'isStory' => false,
@@ -60,14 +60,14 @@ class BlogController extends Controller
      */
     public function show(string $id)
     {
-        $test = blog::orderby('created_at', 'desc')->with('category')->paginate(10);
+        $test = Blog::orderby('created_at', 'desc')->with('category')->paginate(10);
         $isArabic = false;
-        $all = blog::orderby('created_at', 'desc')->take(6)->with('category')->get();
-        $focus = blog::where('id', $id)->with('category')->get();
+        $all = Blog::orderby('created_at', 'desc')->take(6)->with('category')->get();
+        $focus = Blog::where('id', $id)->with('category')->get();
         if ($focus->count() > 0) {
             return view('detail', [
                 'articals' => $all,
-                'category' => blogCategory::get(),
+                'category' => BlogCategory::get(),
                 'focus' => $focus,
                 'isArabic' => $isArabic,
                 'hasVid' => false,
@@ -83,7 +83,7 @@ class BlogController extends Controller
                 'hasPdf' => false,
                 'isStory' => false,
                 'isArt' => false,
-                'category' => blogCategory::get(),
+                'category' => BlogCategory::get(),
                 'getInTouch' => GetInTouch::all()[0]
             ]);
         }
@@ -91,14 +91,14 @@ class BlogController extends Controller
     }
     public function showAR(string $id)
     {
-        $test = blog::orderby('created_at', 'desc')->with('category')->paginate(10);
+        $test = Blog::orderby('created_at', 'desc')->with('category')->paginate(10);
         $isArabic = true;
-        $all = blog::orderby('created_at', 'desc')->take(6)->with('category')->get();
-        $focus = blog::where('id', $id)->with('category')->get();
+        $all = Blog::orderby('created_at', 'desc')->take(6)->with('category')->get();
+        $focus = Blog::where('id', $id)->with('category')->get();
         if ($focus->count() > 0) {
             return view('detail', [
                 'articals' => $all,
-                'category' => blogCategory::get(),
+                'category' => BlogCategory::get(),
                 'focus' => $focus,
                 'hasVid' => false,
                 'hasPdf' => false,
@@ -114,7 +114,7 @@ class BlogController extends Controller
                 'hasPdf' => false,
                 'isStory' => false,
                 'isArt' => false,
-                'category' => blogCategory::get(),
+                'category' => BlogCategory::get(),
                 'getInTouch' => GetInTouch::all()[0]
             ]);
         }

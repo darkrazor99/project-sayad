@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Drawing;
 use App\Models\DrawingCategory;
 use App\Models\Pdf;
-use App\Models\blog;
+use App\Models\Blog;
 use App\Models\Book;
 use App\Models\Category;
 use App\Models\GetInTouch;
 use App\Models\PdfCategory;
 use App\Models\BasicArtical;
-use App\Models\blogCategory;
+use App\Models\BlogCategory;
 use App\Models\Videos;
 use App\Models\VideosCategory;
 use Illuminate\Http\Request;
@@ -98,10 +98,10 @@ class CategoryController extends Controller
 
     public function showB(string $id)
     {
-        $test = blog::where('category_id', $id)->orderby('created_at', 'desc')->with('category')->paginate(10);
+        $test = Blog::where('category_id', $id)->orderby('created_at', 'desc')->with('category')->paginate(10);
         return view('blog', [
             'articals' => $test,
-            'category' => blogCategory::get(),
+            'category' => BlogCategory::get(),
             'hasVid' => false,
             'hasPdf' => false,
             'isStory' => false,
@@ -112,10 +112,10 @@ class CategoryController extends Controller
     }
     public function showBAr(string $id)
     {
-        $test = blog::where('category_id', $id)->orderby('created_at', 'desc')->with('category')->paginate(10);
+        $test = Blog::where('category_id', $id)->orderby('created_at', 'desc')->with('category')->paginate(10);
         return view('blog-ar', [
             'articals' => $test,
-            'category' => blogCategory::get(),
+            'category' => BlogCategory::get(),
             'hasVid' => false,
             'hasPdf' => false,
             'isStory' => false,
