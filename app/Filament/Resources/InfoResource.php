@@ -124,7 +124,7 @@ class InfoResource extends Resource
                                     ->image()
                                     ->required()
                                     ->imageEditor()
-                                    ->hint("if you want to use the Editor make sure to save first")
+                                    ->hint("If you want to use the editor, ensure that you upload the image by saving the information first, rather than doing it on a new entry.")
 
                                     ->dehydrateStateUsing(function ($state) {
                                         $files = array_values($state ?? []);

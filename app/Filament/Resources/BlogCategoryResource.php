@@ -35,6 +35,7 @@ class BlogCategoryResource extends Resource
                                     ->autofocus(),
                                 Forms\Components\Textarea::make('description')
                                     ->autosize()
+                                    ->maxLength(255)
                                     ->rows(5),
                             ])
                     ]),
@@ -50,6 +51,7 @@ class BlogCategoryResource extends Resource
                                 Forms\Components\Textarea::make('description_ar')
                                     ->label('description')
                                     ->autosize()
+                                    ->maxLength(255)
                                     ->rows(5),
                             ])
                     ]),
